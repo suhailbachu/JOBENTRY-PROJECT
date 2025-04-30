@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Saved Jobs</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container mt-4">
+                <div class="alert alert-light text-center border shadow-sm">
+                  {% for message in messages %}
+                  <p class="mb-0">{{ message }}</p>
+                    {% endfor %}
+                </div>
+    <div class="container my-5">
+        {% for saved in save_data %}
+
+        <h2 class="mb-4 text-center">Saved Jobs</h2>
+
+        <!-- Saved Job Card -->
+<div class="card mb-4 shadow-lg border-0" style="background: linear-gradient(135deg, #f8f9fa, #e9ecef);">
+  <div class="card-body">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <div>
+        <h5 class="card-title mb-1 text-primary">{{ saved.job_details.job_name }}</h5>
+        <h6 class="card-subtitle text-muted">{{ saved.job_details.company_details }}</h6>
+      </div>
+      <span class="badge bg-success">Saved</span>
+    </div>
+    <p class="card-text mt-3">
+        {{ saved.job_details.responsibilities}}
+    </p>
+    <div class="d-flex justify-content-between">
+      <a href="#" class="btn btn-outline-primary btn-sm">View Job</a>
+        <a href="{% url 'UnSave' saved.id %}" class="btn btn-outline-danger btn-sm " tabindex="-1" role="button" aria-disabled="true">Remove</a>
+
+
+    </div>
+  </div>
+</div>
+       {% endfor %}
+
+        <!-- Repeat the above card for each saved job -->
+<!--<div class="card mb-4 shadow-lg border-0" style="background: linear-gradient(135deg, #f8f9fa, #e9ecef);">-->
+<!--  <div class="card-body">-->
+<!--    <div class="d-flex justify-content-between align-items-center mb-2">-->
+<!--      <div>-->
+<!--        <h5 class="card-title mb-1 text-primary">Frontend Developer</h5>-->
+<!--        <h6 class="card-subtitle text-muted">Google Inc. – Mountain View, CA</h6>-->
+<!--      </div>-->
+<!--      <span class="badge bg-success">Saved</span>-->
+<!--    </div>-->
+<!--    <p class="card-text mt-3">-->
+<!--      🚀 Develop user-friendly web interfaces using React and Bootstrap.<br>-->
+<!--      🤝 Collaborate with designers and backend developers.-->
+<!--    </p>-->
+<!--    <div class="d-flex justify-content-between">-->
+<!--      <a href="#" class="btn btn-outline-primary btn-sm">View Job</a>-->
+<!--      <button class="btn btn-outline-danger btn-sm">Remove</button>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+        <!-- No Saved Jobs Message -->
+        <!-- Uncomment this section if the user has no saved jobs -->
+        <!--
+        <div class="alert alert-info text-center" role="alert">
+            You have not saved any jobs yet.
+        </div>
+        -->
+
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

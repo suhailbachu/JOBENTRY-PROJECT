@@ -81,33 +81,30 @@
       <!--================Login Box Area =================-->
 	<section class="login_box_area section_gap">
 		<div class="container bg-success  mt-5 p-0">
-			<div class="row p-0">
+			<div class="row p-0  justify-content-center align-items-center">
 				<div class="col-lg-6">
 					<div class="login_box_img position-relative ">
-						<img class="img-fluid" src=" {% static 'img/login.jpg' %} " alt="">
+						<img class="w-100" src=" {% static 'img/login.jpg' %} " alt="">
 						<div class="hover position-absolute top-50 start-50 translate-middle" style="color:black">
 							<h2>New to our website?</h2><br>
 							<p>There are advances being made in science and technology everyday, and a good example of this is the</p>
-							<a class="btn btn-success  fw-bolder " href="giver_add" style="color:black">Create an recruiter</a><br>
-							<a class="btn btn-success  fw-bolder " href="seeker_add" style="color:black">Create an Seeker</a>
+							<a class="btn btn-secondary  fw-bolder " href="giver_add" style="color:black">Create an recruiter</a><br>
+							<a class="btn btn-secondary mt-2 fw-bolder " href="seeker_add" style="color:black">Create an Seeker</a>
 						</div>
 					</div>
 				</div>
-				<div class="col-lg-6 m-0 p-0 align-items-center d-flex justify-content-center">
-					<div class="p-3">
-						<h3 class="text-center">Log in to enter</h3>
-						<form class="row login_form" method="POST">
+				<div class="col-lg-6 m-0 p-0 justify-content-center align-items-center ">
+					<h3 class="text-center">Log in to enter</h3>
+						<form class="row login_form d-flex gap-2 rounded justify-content-center" method="POST">
                                 {% csrf_token %}
-								<input type="text" class="form-control"  name="uname" placeholder="Username" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
-								<input type="text" class="form-control"  name="pass" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
-							    <div>
+								<input type="text" class="form-control rounded-3 fw-bold w-75"  name="uname" placeholder="Username" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
+								<input type="text" class="form-control  rounded-3 fw-bold w-75"  name="pass" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
+							    <div class="text-center">
                                     <label for="f-option2" style="color:yellow">Keep me logged in</label>
                                     <input type="checkbox" id="f-option2" name="selector">
                                 </div>
-								<button type="submit" value="submit" class="primary-btn">Log In</button>
+								<button type="submit" value="submit" class="btn btn-outline-warning w-50">Log In</button>
 						</form>
-
-					</div>
 				</div>
 			</div>
 		</div>

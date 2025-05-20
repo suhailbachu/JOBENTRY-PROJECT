@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
-from prjctapp.models import JobVacancy, Giver, Seeker
+from prjctapp.models import JobVacancy, Giver, Seeker, ApplyForJob, StatusOfJob
 
 
 # Create your views here.
@@ -35,14 +35,35 @@ def jobMoreInfo(request,id):
     user_data =request.user
     seeker_data = Seeker.objects.get(user=user_data)
     job_data = JobVacancy.objects.filter(id=id)
-    return render(request,'jobSeeker/jobMoreInfo.html',{"job_data":job_data,"seeker_data":seeker_data })
+    jobs_status = StatusOfJob.objects.filter(id=id)
+    applied_jobs = ApplyForJob.objects.filter(seeker_details=seeker_data).values_list('job_details', flat=True)
+
+    return render(request,'jobSeeker/jobMoreInfo.html',{"job_data":job_data,"seeker_data":seeker_data ,"applied_jobs": applied_jobs, 'jobs_status': jobs_status})
 
 @login_required(login_url="home")
 def jobList(request):
-    user_data = request.user
-    seeker_data = Seeker.objects.get(user=user_data)
-    job_data = JobVacancy.objects.all()
-    return render(request,'jobSeeker/jobList.html',{"seeker_data":seeker_data , "job_data":job_data})
+        user_data = request.user
+        seeker_data = Seeker.objects.get(user=user_data)
+        job_data = JobVacancy.objects.all()
+        jobs_status = StatusOfJob.objects.filter(seeker_details=seeker_data)
+
+
+        # Filter by email match
+        applied_jobs = ApplyForJob.objects.filter(seeker_details=seeker_data).values_list('job_details', flat=True)
+
+        return render(request, 'jobSeeker/jobList.html', {
+            "seeker_data": seeker_data,
+            "job_data": job_data,
+            "applied_jobs": applied_jobs,
+            'jobs_status': jobs_status
+        })
+
+    # user_data = request.user
+    # seeker_data = Seeker.objects.get(user=user_data)
+    # applied_jobs = ApplyForJob.objects.filter(seeker_data=seeker_data).values_list('job_id', flat=True)
+    #
+    # job_data = JobVacancy.objects.all()
+    # return render(request,'jobSeeker/jobList.html',{"seeker_data":seeker_data , "job_data":job_data,'applied_jobs': applied_jobs})
 
 @login_required(login_url="home")
 def giverDash(request):

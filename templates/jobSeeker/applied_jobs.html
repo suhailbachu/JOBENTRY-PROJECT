@@ -1,0 +1,22 @@
+<!-- templates/jobSeeker/applied_jobs.html -->
+
+<h2>My Applied Jobs</h2>
+
+<table border="1">
+    <tr>
+        <th>Job Title</th>
+        <th>Location</th>
+        <th>Applied Date</th>
+        <th>Status</th>
+    </tr>
+    {% for app in applications %}
+    <tr>
+        <td>{{ app.job_details.job_name }}</td>
+        <td>{{ app.job_details.job_location }}</td>
+        <td>{{ app.id }}</td> <!-- Or add applied_date if available -->
+        <td>{{ app.status }}</td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="4">You haven't applied for any jobs yet.</td></tr>
+    {% endfor %}
+</table>

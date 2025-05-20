@@ -1,7 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 
 from django.db import models
-from django.db.models import Model
+from django.db.models import Model, DO_NOTHING
 
 
 # Create your models here.
@@ -35,7 +35,7 @@ class Seeker(models.Model):
 
 
 class JobVacancy(models.Model):
-    recruiter_details =models.ForeignKey(Giver,on_delete=models.CASCADE)
+    recruiter_details =models.ForeignKey(Giver,on_delete=models.SET_NULL,null=True,blank=True)
     job_name = models.CharField(max_length=100)
     job_location = models.CharField(max_length=150)
     job_posted_date = models.DateField(auto_now=True)
@@ -47,16 +47,43 @@ class JobVacancy(models.Model):
     company_details =models.TextField()
     salary = models.CharField(max_length=15)
 
+class ApplyForJob(models.Model):
+    job_details = models.ForeignKey(JobVacancy,on_delete=models.CASCADE)
+    seeker_details = models.ForeignKey(Seeker,on_delete=models.CASCADE,null=True,blank=True)
+    name = models.CharField(max_length=100)
+    Email = models.EmailField()
+    Resume = models.FileField()
+    portifolio_link =models.CharField()
+    cover_letter=models.TextField()
 
 class Saved(models.Model):
     job_details = models.ForeignKey(JobVacancy,on_delete=models.DO_NOTHING)
     seeker_details = models.ForeignKey(Seeker,on_delete=models.DO_NOTHING)
 
 
-class ApplyForJob(models.Model):
-    job_details = models.ForeignKey(JobVacancy,on_delete=models.CASCADE)
-    name = models.CharField(max_length=100)
-    Email = models.EmailField()
-    Resume = models.FileField()
-    portifolio_link =models.CharField()
-    cover_letter=models.TextField()
+
+
+
+class StatusOfJob(models.Model):
+    job_details = models.ForeignKey(JobVacancy,on_delete=models.DO_NOTHING)
+    seeker_details = models.ForeignKey(Seeker, on_delete=models.DO_NOTHING)
+    status_choices = [
+        (0, 'Pending'),
+        (1, 'Hired'),
+        (2, 'Not Selected'),
+    ]
+    status = models.IntegerField(choices=status_choices, default=0)
+
+
+
+
+
+class Message(models.Model):
+    job_details = models.ForeignKey(JobVacancy,on_delete=models.DO_NOTHING)
+    seeker_details = models.ForeignKey(Seeker,on_delete=models.DO_NOTHING,null=True,blank=True)
+    recruiter_details =models.ForeignKey(Giver,on_delete=models.DO_NOTHING,null=True,blank=True)
+    recruiter_message = models.TextField(null=True,blank=True)
+    seeker_message = models.TextField(null=True,blank=True)
+    date = models.DateTimeField(auto_now=True)
+
+

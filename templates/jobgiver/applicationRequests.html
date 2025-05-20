@@ -249,40 +249,112 @@
           </div>
         </nav>
 
-          <div class="container my-5 mt-5">
-                    {% for requests in application_data %}
 
-    <h2 class="mb-4 mt-5">Job Applications: {{ requests.job_details.job_name }}</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Job Applications</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+<div class="container my-5 mt-5">
+    <h2 class="mb-4 mt-5">All Job Applications</h2>
 
-    <!-- Display previous applicants' information -->
-    <div class="mb-5 mt-5">
-        <h4 class="mt-5">Previous Applications</h4>
-
-            <div class="row mb-4">
-                <!-- Card for each application -->
-                <div class="col-md-6">
-                    <div class="card shadow-sm">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ requests.name }}</h5>
-                            <p class="card-text"><strong>Email:</strong> {{ requests.Email }}</p>
-                            <p class="card-text"><strong>Portfolio:</strong> <a href="{{ requests.portifolio_link }}" target="_blank">{{ requests.portifolio_link }}</a></p>
-                            <p class="card-text"><strong>Cover Letter:</strong> {{ requests.cover_letter }}</p>
-
-                            {% if requests.Resume %}
-                                <p class="card-text"><strong>Resume:</strong>
-                                    <a href="{{ requests.Resume.url }}" class="btn btn-info" target="_blank">View Resume</a>
-                                </p>
-                            {% else %}
-                                <p>No resume uploaded.</p>
-                            {% endif %}
-                        </div>
+    <div class="row row-cols-1 g-4">
+        {% for application in applications %}
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">{{ application.name }}</h5>
+                    <p><strong>Job Name:</strong> {{ application.job_details.job_name }}</p>
+                    <p><strong>Email:</strong> {{ application.Email }}</p>
+                    <p><strong>Portfolio:</strong>
+                        <a href="{{ application.portifolio_link }}" target="_blank">{{ application.portifolio_link }}</a>
+                    </p>
+                    <p><strong>Cover Letter:</strong></p>
+                    <div class="bg-light border rounded p-2 mb-3" style="white-space: pre-line; max-height: 150px; overflow-y: auto;">
+                        {{ application.cover_letter }}
+                    </div>
+                    <p><strong>Resume:</strong>
+                        <a href="{{ application.Resume.url }}" class="btn btn-sm btn-primary" download>View Resume</a>
+                    </p>
+                    <div class="quantity-controls">
+                        <a href="{% url 'Hired' application.id %}">Hired</a>
+                        <a href="{% url 'NotSelected' application.id %}">Not Selected</a>
                     </div>
                 </div>
             </div>
+        </div>
         {% empty %}
-            <p>No applications yet.</p>
+        <p>No applications found.</p>
         {% endfor %}
     </div>
+</div>
+
+</body>
+</html>
+
+<!--<div class="container my-5 mt-5">-->
+<!--   {% for status in application_data %}-->
+<!--    <h2 class="mb-4 mt-5">Job Applications: {{ status.job_details.job_name }}</h2>-->
+
+<!--    <div class="mb-5 mt-5">-->
+<!--        <h4 class="mt-5">Previous Applications</h4>-->
+<!--        <div class="row mb-4">-->
+<!--            <div class="col-md-6">-->
+<!--                <div class="card shadow-sm">-->
+<!--                    <div class="card-body">-->
+<!--                        <h5 class="card-title">{{ status.name }}</h5>-->
+<!--                        <p class="card-text"><strong>Email:</strong> {{ status.Email }}</p>-->
+<!--                        <p class="card-text"><strong>Portfolio:</strong>-->
+<!--                            <a href="{{ status.portifolio_link }}" target="_blank">{{ status.portifolio_link }}</a>-->
+<!--                        </p>-->
+<!--                        <p class="card-text"><strong>Cover Letter:</strong> {{ status.cover_letter }}</p>-->
+
+<!--                        {% if status.Resume %}-->
+<!--                            <p class="card-text"><strong>Resume:</strong>-->
+<!--                                <a href="{{ status.Resume.url }}" class="btn btn-info" target="_blank">View Resume</a>-->
+<!--                            </p>-->
+<!--                        {% else %}-->
+<!--                            <p>No resume uploaded.</p>-->
+<!--                        {% endif %}-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--{% endfor %}-->
+
+
+<!-- Application status control table-->
+<!--<table class="table">-->
+<!--    <thead>-->
+<!--        <tr>-->
+<!--            <th>Applicant Name</th>-->
+<!--            <th>Job Name</th>-->
+<!--            <th>Status</th>-->
+<!--        </tr>-->
+<!--    </thead>-->
+<!--    <tbody>-->
+<!--        {% for item in obj %}-->
+<!--        <tr>-->
+<!--            <td>{{ item.seeker_details.name }}</td>-->
+<!--            <td>{{ item.job_details.job_name }}</td>-->
+<!--            <td>-->
+<!--                {% if item.status == 0 %}-->
+<!--                    <a href="{% url 'Hired' item.id %}">Hired</a> |-->
+<!--                    <a href="{% url 'NotSelected' item.id %}">Not Selected</a>-->
+<!--                {% elif item.status == 1 %}-->
+<!--                    Hired-->
+<!--                {% else %}-->
+<!--                    Not Selected-->
+<!--                {% endif %}-->
+<!--            </td>-->
+<!--        </tr>-->
+<!--        {% endfor %}-->
+<!--</div>-->
+
 </div>
 
         </div>

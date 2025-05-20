@@ -1,7 +1,8 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 
-from prjctapp.models import LoginView, Giver, Seeker, JobVacancy, ApplyForJob
+
+from prjctapp.models import LoginView, Giver, Seeker, JobVacancy, ApplyForJob, Message
 
 
 class LoginUser(UserCreationForm):
@@ -33,5 +34,15 @@ class ApplyForm(forms.ModelForm):
     class Meta:
         model = ApplyForJob
         fields =("name","Email","Resume","portifolio_link","cover_letter")
+
+
+
+
+class messageForm(forms.ModelForm):
+    customer_message = forms. CharField(label='',widget=forms.TextInput(attrs={'placeholder':"Type Message Here","class": "form-control"}),required=False)
+    seller_message = forms.CharField(label="",widget=forms.TextInput(attrs={'placeholder':"Type Message Here","class": "form-control"}),required=False)
+    class Meta:
+        model = Message
+        fields =( "customer_message","seller_message")
 
 

@@ -144,7 +144,48 @@
                                     <div class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
                                         <div class="d-flex mb-3">
                                             <a class="btn btn-light btn-square me-3" href="{% url 'addToSave' job.id %}"><i class="far fa-heart text-primary"></i></a>
+                                          {% if job.id not in applied_jobs %}
                                             <a class="btn btn-primary" href="{% url 'apply_job' job.id %}">Apply Now</a>
+                                            {% else %}
+                                            <span class="btn btn-secondary disabled">Already Applied</span>
+<!--                                                {% if obj %}-->
+
+<!--                                   {% if i.status == 2 %}-->
+<!--                                     <a class ="btn border-secondary text-secondary rounded-0 w-100 ">Rejected</a>-->
+<!--                                   {% elif i.status == 1 %}-->
+<!--                                        <a class="btn border-secondary text-secondary rounded-0 w-100">Accepted</a>-->
+
+<!--                                      {% else %}-->
+<!--                            <a class="btn border-secondary text-secondary rounded-0 w-100">Pending</a>-->
+<!--                                    {% endif %}-->
+
+                        {% else %}
+                                            {% endif %}
+
+
+
+ <div class="w-100">
+
+<!--                            <a href="{% url 'JobStatus' job.id %}"-->
+<!--                                class="btn btn-outline-secondary border-dark text-dark rounded-0 w-100 ">update me status </a>-->
+                        {% endif %}
+
+<!--              {% for status in jobs_status %}-->
+<!--                                             {% if status.status == 2 %}-->
+<!--                                     <a class ="btn border-secondary text-secondary rounded-0 w-100 ">Rejected</a>-->
+<!--                                   {% elif status.status == 1 %}-->
+<!--                                        <a class="btn border-secondary text-secondary rounded-0 w-100">Accepted</a>-->
+
+<!--                                      {% else %}-->
+<!--                            <a class="btn border-secondary text-secondary rounded-0 w-100">Pending</a>-->
+<!--                                    {% endif %}-->
+<!--                                             {% endfor %}-->
+
+                        </div>
+
+
+
+
                                         </div>
                                         <small class="text-truncate"><i class="far fa-calendar-alt text-primary me-2"></i>{{ job.job_posted_date }}</small>
                                     </div>
@@ -160,7 +201,9 @@
                 </div>
             </div>
         </div>
+
         <!-- Jobs End -->
+<div>
 
 
         <!-- Footer Start -->

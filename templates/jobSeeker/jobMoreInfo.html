@@ -109,7 +109,16 @@
                                 <span class="text-truncate me-0"><i class="far fa-money-bill-alt text-primary me-2"></i>{{ job.salary }}</span>
                             </div>
                         </div>
+                            {% for status in jobs_status %}
+                                             {% if status.status == 2 %}
+                                     <a class ="btn border-danger text-danger rounded-0 w-100 ">Your Application Rejected</a>
+                                   {% elif status.status == 1 %}
+                                        <a class="btn border-secondary text-secondary rounded-0 w-100">Your Application is Shortlisted</a>
 
+                                      {% else %}
+                            <a class="btn border-secondary text-secondary rounded-0 w-100">Pending</a>
+                                    {% endif %}
+                                             {% endfor %}
                         <div class="mb-5">
                             <h4 class="mb-3">Job description</h4>
                             <p>{{ job.job_discription }}</p>
@@ -122,13 +131,13 @@
                         </div>
 
                         <div class="">
-  <div class="">
-    <h4 class="mb-4">Apply For The Job</h4>
+<!--  <div class="">-->
+<!--    <h4 class="mb-4">Apply For The Job</h4>-->
 
-         <div class="d-flex mb-3">
+<!--         <div class="d-flex mb-3">-->
 
-             <a class="btn btn-primary" href="{% url 'apply_job' job.id %}">Apply Now</a>
-         </div>
+<!--&lt;!&ndash;             <a class="btn btn-primary" href="{% url 'apply_job' job.id %}">Apply Now</a>&ndash;&gt;-->
+<!--         </div>-->
 </div>
                                 </div>
 <!--                            </form>-->
@@ -153,7 +162,10 @@
                 </div>
             </div>
         </div>
+
+
         {% endfor %}
+
         <!-- Job Detail End -->
 
 
